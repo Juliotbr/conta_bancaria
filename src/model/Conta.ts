@@ -1,12 +1,12 @@
-export class Conta {
+export abstract class Conta {
 
     private _numero: number;
     private _agencia: number;
     private _tipo: number;
-    private _titular: number;
+    private _titular: string;
     private _saldo: number;
     
-    constructor(numero: number, agencia:number, tipo: number, titular: number, saldo: number){
+    constructor(numero: number, agencia:number, tipo: number, titular: string, saldo: number){
         this._numero = numero;
         this._agencia = agencia;
         this._tipo = tipo;
@@ -38,11 +38,11 @@ export class Conta {
         this._tipo = value;
     }
 
-    public get titular(): number {
+    public get titular(): string {
         return this._titular;
     }
 
-    public set titular(value: number) {
+    public set titular(value: string) {
         this._titular = value;
     }
 
