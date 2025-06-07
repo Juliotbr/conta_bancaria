@@ -53,17 +53,48 @@ export class ContaController implements ContaRepository {
                 "\nConta não encontrada!", colors.reset);
         }
     }
-    sacar(numero: number, valor: number): void {
-        throw new Error("Method not implemented.");
+    public sacar(numero: number, valor: number): void {
+        let conta = this.buscarNoArray(numero);
+        
+        if (conta != null) {
+            if(conta.sacar(valor) == true)
+            console.log(colors.fg.green, "\nSaque de R$ " + numero +
+        " foi realizado com sucesso!", colors.reset);
+        }else {
+        console.log(colors.fg.red, "\nA conta numero: " + numero +
+            "\nConta não encontrada!", colors.reset);
+        }
     }
-    depositar(numero: number, valor: number): void {
-        throw new Error("Method not implemented.");
-    }
-    transferir(numeroOrigem: number, numeroDestino: number, valor: number): void {
-        throw new Error("Method not implemented.");
+    public depositar(numero: number, valor: number): void {
+        let conta = this.buscarNoArray(numero);
+
+        if (conta != null) {
+            conta.depositar(valor);
+            console.log(colors.fg.green, "\nDepósito na conta número: " + numero +
+                " foi efetuado com sucesso!", colors.reset);
+
+        }else {
+            console.log(colors.fg.red, "\nConta número" + numero + 
+                "\n não foi encontrada!", colors.reset)};
     }
     
+    public transferir(numeroOrigem: number, numeroDestino: number, valor: number): void {
+        let contaOrigem = this.buscarNoArray(numeroOrigem);
+        let contaDestino = this.buscarNoArray(numeroDestino);
 
+        if (contaOrigem != null && contaDestino != null) {
+            if(contaOrigem.sacar(valor) == true) {
+                contaDestino.depositar(valor);
+                console.log(colors.fg.green, "\nTranferência da conta número: " + numeroOrigem +
+                    " para a conta número: " + numeroDestino + " foi efetuada com sucesso!",
+                    colors.reset);
+            }
+        }else {
+            console.log(colors.fg.red, "\nConta de origem número: " + numeroOrigem +
+            " e/ou a Conta numero: " + numeroDestino + " não foram encontradas!",
+            colors.reset);}
+        }
+        
     // métodos auxiliares
     // gerar numero da conta
     public gerarNumero(): number {
